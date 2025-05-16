@@ -54,5 +54,22 @@ public class UserServiceTests {
         verify(fakeRepo, times(1)).insertUser(anyLong(), eq(name), eq(surname));
     }
 
+    /**
+     * Test for the removeUser method when user exists
+     */
+    @Test
+    void testRemoveUserWhenUserExists() {
+        // Arrange
+        long userId = 1L;
+        String userName = "Leen";
+        when(fakeRepo.deleteUser(userId)).thenReturn(userName);
 
+        // Act
+        String result = userService.removeUser(userId);
+
+        // Assert
+        assertEquals(userName, result);
+        verify(fakeRepo, times(1)).deleteUser(userId);
+    }
 }
+
